@@ -83,7 +83,7 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
     - 이상적으로, **식 (2)에서 나온 잡음 제거 과정(denoising process)의 결과 $\{ \hat x(t) \}_ {t \in [0, 1]}$는 식 (1)에서 얻은 순방향 확산 과정 $\{ x(t) \}_ {t \in [0,1]}$와 같은 분포**를 갖는다.
 - 식 (2)의 역-시간 SDE는 시간에 의존적인 스코어 함수(time-dependent score function) $\nabla_ x \log{ p_ t(x) }$의 지식을 필요로 한다. 자주 쓰이는 접근 방법 중 하나는 매개 변수화된 신경망(parameterized neural network) $s_ \theta(x, t)$를 이용해 $\nabla_ x \log {p_ t(x)}$를 추정하는 것이다.
     - 확산 모델은 여러 시간 단계에 걸쳐 잡음 제거 스코어 매칭(denoising score matching)의 가중 조합으로 훈련된다.
-    - $ \min _\theta {\int^ 1_ 0 E_ {p_ {}(x)p_ {0t}(\tilde x \vert x)}(\lambda(t) \vert\vert \nabla_ {\tilde x}\log{p_ {0t}(\tilde x \vert x)} - s_ \theta (\tilde x, t) \vert \vert^ 2_ 2})dt $
+    - $\min _\theta {\int^ 1_ 0 E_ {p_ {}(x)p_ {0t}(\tilde x \vert x)}(\lambda(t) \vert\vert \nabla_ {\tilde x}\log{p_ {0t}(\tilde x \vert x)} - s_ \theta (\tilde x, t) \vert \vert^ 2_ 2})dt$
         - $\lambda(t)$ : 가중치 계수(weighting coefficient)
         - $x(0) := x$에서부터 $x(t) := \tilde x$까지 전이 확률(transition probability) : $p_ {0t}(\tilde x \vert x)$
             - 식 (1)의 순방향 SDE를 통해 닫힌 식을 갖는다.
@@ -109,17 +109,17 @@ ${\partial D_ {KL}(p_ t \vert \vert q_ t) \over \partial t} \le 0$
 
 위의 부등식은 $p_ t = q_ t$일 때 등식이 된다. 즉, $p _t$와 $q_ t$의 쿨백-라이블러 발산(KL divergence)은 순방향 SDE에서 $t=0$에서부터 $t=1$로 움직일 때 단조 감소(monotonically decreases)한다.
 
-위 정리에 따라 $D _{KL}(p_ {t^ *} \vert \vert q_ {t^ *}) \le \epsilon$을 만족하는 최소 시간 단계(timestep) $t^ * \in [0, 1]$가 존재한다. 그러나 시간 단계 $t = t^ *$에서 확산된 적대적 표본 $x(t^ *) \sim q_ {t^ *}$는 추가적인 잡음을 포함하고 있고 직접적으로 분류될 수 없다. 그러므로 식 (2)의 SDE를 통해, $**x(t^ *)$에서부터 시작하여 확률적으로 $t = 0$에서의 깨끗한 데이터를 복원**할 수 있다.
+위 정리에 따라 $D _{KL}(p_ {t^ {*}} \vert \vert q_ {t^ {*}}) \le \epsilon$ 을 만족하는 최소 시간 단계(timestep) $t^ * \in [0, 1]$가 존재한다. 그러나 시간 단계 $t = t^ *$에서 확산된 적대적 표본 $x(t^ {*}) \sim q_ {t^ {*}}$는 추가적인 잡음을 포함하고 있고 직접적으로 분류될 수 없다. 그러므로 식 (2)의 SDE를 통해, $**x(t^ {*})$에서부터 시작하여 확률적으로 $t = 0$에서의 깨끗한 데이터를 복원**할 수 있다.
 
 ### 확산 정화
 
 확산 모델을 이용하는 두 단계로 이루어진 적대적 정화 기법을 제시한다.
 
-1. $t = 0$에서 주어진 적대적 예시 $x_ a$에 대해 식 (1)의 순방향 SDE를 $t=0$에서부터 $t = t^ *$까지 해결하여(solve) 이를 확산한다. VP-SDE에 대해, 확산 시간 단계 $t^ * \in [0,1]$에서 확산된 적대적 표본은 다음 식을 사용해 효율적으로 추출할 수 있다.
-$x(t^ *) = \sqrt{\alpha(t^ *)}x_a + \sqrt{1 - \alpha(t^ *)}\epsilon\quad (3) \\
-\text{ where } \alpha(t) = e^ {- \int^ t_ 0 \beta(s)ds} \text{ and } \epsilon \sim N(0, I_ d).$
-2. 시간 단계 $t = t^ *$에서 식 (2)의 역-시간 SDE를 식 (3)에서 주어진 확산된 적대적 표본 $x(t^ *)$를 사용해서 해결한다. 이 적대적 표본은 식 (2)의 SDE의 마지막 솔루션 $\hat x(0)$을 얻기 위한 초깃값이다. $\hat x(0)$은 닫힌 식 솔루션이 없기 때문에 sdeint로 불리는 SDE 솔버(solver)를 이용한다.
-$\hat x(0) = \text{sdeint}( x(t^ *), f_ {rev}, g_ {rev}, \bar w, t^ *, 0)$
+1. $t = 0$에서 주어진 적대적 예시 $x_ {a}$에 대해 식 (1)의 순방향 SDE를 $t=0$에서부터 $t = t^ {*}$까지 해결하여(solve) 이를 확산한다. VP-SDE에 대해, 확산 시간 단계 $t^ {*} \in [0,1]$에서 확산된 적대적 표본은 다음 식을 사용해 효율적으로 추출할 수 있다.
+$x(t^ {*}) = \sqrt{\alpha(t^ {*})}x_ {a} + \sqrt{1 - \alpha(t^ {*})}\epsilon\quad (3) \\
+\text{ where } \alpha(t) = e^ {- \int^ {t_ {0}} \beta(s)ds} \text{ and } \epsilon \sim N(0, I_ d).$
+2. 시간 단계 $t = t^ {*}$에서 식 (2)의 역-시간 SDE를 식 (3)에서 주어진 확산된 적대적 표본 $x(t^ {*})$를 사용해서 해결한다. 이 적대적 표본은 식 (2)의 SDE의 마지막 솔루션 $\hat x(0)$을 얻기 위한 초깃값이다. $\hat x(0)$은 닫힌 식 솔루션이 없기 때문에 sdeint로 불리는 SDE 솔버(solver)를 이용한다.
+$\hat x(0) = \text{sdeint}( x(t^ {*}), f_ {rev}, g_ {rev}, \bar w, t^ {*}, 0)$
 sdeint는 여섯 개의 입력(초깃값, 드리프트 계수, 확산 계수, 위너 확률 과정, 초기 시간, 끝 시간)을 받는다. 또한, 드리프트와 확산 계수는 다음과 같이 주어진다.
 $f_ {rev}(x,t) := -{1 \over 2} \beta(t)[x + 2s_\theta(x,t)] \\ g_ {rev}(t) := \sqrt{\beta(t)}$
 결과로 얻은 정화된 데이터 $\hat x(0)$은 예측을 위해 외부의 표준 분류기(standard classifier)로 전달된다. 
@@ -162,7 +162,7 @@ $\partial L \over \partial \hat x(0)$은 식 (4)의 SDE의 결과 $\hat x(0)$에
 
 $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
-이상적으로 만약 SDE 솔버가 작은 수치적 오차를 갖는다면 이 명제로부터 얻은 그래디언트는 참값과 매우 가깝다. 그래디언트 계산이 식 (6)의 증가된 SDE를 해결하는 것으로 변환되었으므로, 우리는 중간 작업을 저장할 필요가 없다. 그러므로 **메모리 비용이 O(1)**에 그친다. 즉, *adjoint method*는 식 (4)의 역-시간 SDE를 미분 가능한 연산으로 변환한다(메모리 문제 없이). 식 (3)의 순방향 확산 과정 또한 재매개변수화(reparametrization) 기법을 써서 미분이 가능하기 때문에 **강력한 적응성 공격에 대한 적대적 이미지에 관한 손실 함수의 전체 그래디언트를 쉽게 계산**할 수 있다. 
+이상적으로 만약 SDE 솔버가 작은 수치적 오차를 갖는다면 이 명제로부터 얻은 그래디언트는 참값과 매우 가깝다. 그래디언트 계산이 식 (6)의 증가된 SDE를 해결하는 것으로 변환되었으므로, 우리는 중간 작업을 저장할 필요가 없다. 그러므로 **메모리 비용이 O(1)** 에 그친다. 즉, *adjoint method*는 식 (4)의 역-시간 SDE를 미분 가능한 연산으로 변환한다(메모리 문제 없이). 식 (3)의 순방향 확산 과정 또한 재매개변수화(reparametrization) 기법을 써서 미분이 가능하기 때문에 **강력한 적응성 공격에 대한 적대적 이미지에 관한 손실 함수의 전체 그래디언트를 쉽게 계산**할 수 있다. 
 
 # 4. Related Work
 
@@ -200,7 +200,7 @@ $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
 ### 적대적 공격
 
-강력한 적응성 공격에 대해서도 기법을 평가한다. 공통적으로 쓰이는 AutoAttack $l_ \infin$과 $l_ 2$위협 모델을 사용하여 적대적 훈련 기법과 비교한다. $l_ p$-norm 공격뿐 아니라 다양하게 적용될 수 있는 DiffPure의 능력을 보이기 위해 부분적으로 변환된 적대적 예시에 대해서도 또한 평가한다. 확산과 잡음 제거 과정에 있는 확률성(stochasticity) 덕분에 이러한 적응성 공격에 대해 Expectation Over Time(EOT)을 적용할 수 있다. EOT는 20을 사용한다. 게다가 다른 적대적 정화 기법과의 공정한 비교를 위해 BPDA+EOT 공격도 적용한다. 
+강력한 적응성 공격에 대해서도 기법을 평가한다. 공통적으로 쓰이는 AutoAttack $l_ {\infin}$과 $l_ {2}$위협 모델을 사용하여 적대적 훈련 기법과 비교한다. $l_ p$-norm 공격뿐 아니라 다양하게 적용될 수 있는 DiffPure의 능력을 보이기 위해 부분적으로 변환된 적대적 예시에 대해서도 또한 평가한다. 확산과 잡음 제거 과정에 있는 확률성(stochasticity) 덕분에 이러한 적응성 공격에 대해 Expectation Over Time(EOT)을 적용할 수 있다. EOT는 20을 사용한다. 게다가 다른 적대적 정화 기법과의 공정한 비교를 위해 BPDA+EOT 공격도 적용한다. 
 
 ### 평가 지표
 
@@ -217,7 +217,7 @@ $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
 ![image](https://user-images.githubusercontent.com/54873618/232223147-d70df401-11ec-4145-a725-831233757ee2.png)
 
-위 테이블은 CIFAR-10 데이터를 공격한 $l_ \infin$ 위협 모델($\epsilon = 8/255$)에 대한 DiffPure의 강건성을 나타낸 것이다. 해당 기법이 **표준 정확도와 강건한 정확도에 있어 모두 이전의 SOTA 모델보다 나은 성능**을 보였다. 
+위 테이블은 CIFAR-10 데이터를 공격한 $l_ {\infin}$ 위협 모델($\epsilon = 8/255$)에 대한 DiffPure의 강건성을 나타낸 것이다. 해당 기법이 **표준 정확도와 강건한 정확도에 있어 모두 이전의 SOTA 모델보다 나은 성능**을 보였다. 
 
 ![image](https://user-images.githubusercontent.com/54873618/232223151-66c706b8-cf1f-4dfd-b07b-9ebda2fd76e4.png)
 
@@ -225,15 +225,15 @@ $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
 ![image](https://user-images.githubusercontent.com/54873618/232223154-975157ac-0bca-4238-91d8-1d904bc53bff.png)
 
-이러한 결과는 $l_ \infin$과 $l_ 2$ 위협 모델 모두를 방어하는 데에 있어 DiffPure의 효과를 나타낸다. 평가에 사용되는 특정 $l_ p$-norm 공격에 대해 훈련된 다른 기법과 달리 **DiffPure는 위협 모델에 구애를 받지 않는다**.
+이러한 결과는 $l_ {\infin}$과 $l_ 2$ 위협 모델 모두를 방어하는 데에 있어 DiffPure의 효과를 나타낸다. 평가에 사용되는 특정 $l_ p$-norm 공격에 대해 훈련된 다른 기법과 달리 **DiffPure는 위협 모델에 구애를 받지 않는다**.
 
 ### ImageNet
 
 ![image](https://user-images.githubusercontent.com/54873618/232223161-e81a06fb-8124-4075-b57a-656acf577a64.png)
 
-위 테이블은 ImageNet을 공격한 $l_ \infin$ 위협 모델($\epsilon = 4/255$)에 대한 강건성을 나타낸 것이다. DiffPure을 두 개의 CNN 구조 ResNet-50과 WideResNet-50-2, 그리고 한 개의 ViT 구조 DeiT-S로 평가하였다. DiffPure은 **SOTA보다 표준 정확도, 강건한 정확도 모두에서 더 좋은 성능**을 보인다. 이 기법의 이점은 ViT 구조에서 더욱 두드러진다. 
+위 테이블은 ImageNet을 공격한 $l_ {\infin}$ 위협 모델($\epsilon = 4/255$)에 대한 강건성을 나타낸 것이다. DiffPure을 두 개의 CNN 구조 ResNet-50과 WideResNet-50-2, 그리고 한 개의 ViT 구조 DeiT-S로 평가하였다. DiffPure은 **SOTA보다 표준 정확도, 강건한 정확도 모두에서 더 좋은 성능**을 보인다. 이 기법의 이점은 ViT 구조에서 더욱 두드러진다. 
 
-이러한 결과는 ImageNet을 공격한 $l_ \infin$ 위협 모델을 방어하는 데에 있어 해당 기법의 효과를 나타낸다. 또한, **DiffPure는 분류기의 구조의 구애를 받지 않는다**.
+이러한 결과는 ImageNet을 공격한 $l_ {\infin}$ 위협 모델을 방어하는 데에 있어 해당 기법의 효과를 나타낸다. 또한, **DiffPure는 분류기의 구조의 구애를 받지 않는다**.
 
 ## 5.3 보이지 않는 위협에 대한 방어
 
