@@ -59,7 +59,7 @@ Diffusion Models for Adversarial Purification
 이 섹션에서는 연속 시간 확산 모델(continuous-time diffusion model)에 대해 간단하게 리뷰한다.
 
 - $p(x)$ : 알려지지 않은 데이터 분포. 생성 모델의 목표는 이를 추정하는 것이다.
-    - 각 데이터 $x \in \R^ d$가 이 분포로부터 추출된다.
+    - 각 데이터 $x \in R^ d$가 이 분포로부터 추출된다.
     - 확산 모델은 $p(x)$를 잡음 분포(noise distribution)로 확산한다.
 - 순방향 확산 과정(Forward diffusion process) $\{ x(t) \}_ {t \in [0, 1]}$는 SDE에 의해 다음과 같이 정의한다.
 $dx = f(x, t)dt + g(t)dw\quad (1)$
@@ -69,7 +69,7 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
     - 표준 위너 확률 과정(standard Wiener process) : $w(t) \in R^d$
     - $p_t(x)$ : $x(t)$의 주변 분포(marginal distribution)
         - $p_ 0(x) := p(x)$
-    -  $**f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계**한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$
+    - $f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$
     - VP-SDE를 확산 모델로 사용한다.
         - $f(x, t) := -{1 \over 2}\beta(t)x$
         - $g(t) := \sqrt{ \beta(t) }$
