@@ -79,7 +79,7 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
     - $d \hat x = (f_ {(\hat x, t)} - g(t)^ 2 \nabla _{\hat x} \log{p_  t(\hat x)})dt + g(t)d\bar w \quad (2)$
     - $dt$ : 미소한 음의 시간 단계(An infinitesimal negative time step)
     - $\bar w (t)$  : 표준 역-시간 위너 확률 과정(standard reverse-time Wiener process)
-    - $\hat x(1) \sim N(0, I_ d)$를 초깃값으로 설정한 채 위의 역-시간 SDE를 $t=1$에서 $t=0$까지 해결하는 것은 **데이터 분포에서 표본을 추출할 때까지(다시 말해서 $\hat x(0) \sim p_ {0}(x)$) 잡음이 덜한 데이터 $\hat x(t)$를 점진적으로 생성**한다.
+    - $\hat x(1) \sim N(0, I_ d)$를 초깃값으로 설정한 채 위의 역-시간 SDE를 $t=1$에서 $t=0$까지 해결하는 것은 **데이터 분포에서 표본을 추출할 때까지(다시 말해서 $\hat x(0) \sim p_ {0}(x)$ ) 잡음이 덜한 데이터 $\hat x(t)$를 점진적으로 생성**한다.
     - 이상적으로, **식 (2)에서 나온 잡음 제거 과정(denoising process)의 결과 $\{ \hat x(t) \}_ {t \in [0, 1]}$는 식 (1)에서 얻은 순방향 확산 과정 $\{ x(t) \}_ {t \in [0,1]}$와 같은 분포**를 갖는다.
 - 식 (2)의 역-시간 SDE는 시간에 의존적인 스코어 함수(time-dependent score function) $\nabla_ x \log{ p_ t(x) }$의 지식을 필요로 한다. 자주 쓰이는 접근 방법 중 하나는 매개 변수화된 신경망(parameterized neural network) $s_ \theta(x, t)$를 이용해 $\nabla_ x \log {p_ t(x)}$를 추정하는 것이다.
     - 확산 모델은 여러 시간 단계에 걸쳐 잡음 제거 스코어 매칭(denoising score matching)의 가중 조합으로 훈련된다.
