@@ -69,7 +69,7 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
     - 표준 위너 확률 과정(standard Wiener process) : $w(t) \in R^d$
     - $p_t(x)$ : $x(t)$의 주변 분포(marginal distribution)
         - $p_ 0(x) := p(x)$
-    - $**f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계**한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$
+    -  $**f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계**한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$
     - VP-SDE를 확산 모델로 사용한다.
         - $f(x, t) := -{1 \over 2}\beta(t)x$
         - $g(t) := \sqrt{ \beta(t) }$
