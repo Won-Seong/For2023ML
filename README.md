@@ -83,7 +83,7 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
     - 이상적으로, **식 (2)에서 나온 잡음 제거 과정(denoising process)의 결과 $\{ \hat x(t) \}_ {t \in [0, 1]}$는 식 (1)에서 얻은 순방향 확산 과정 $\{ x(t) \}_ {t \in [0,1]}$와 같은 분포**를 갖는다.
 - 식 (2)의 역-시간 SDE는 시간에 의존적인 스코어 함수(time-dependent score function) $\nabla_ x \log{ p_ t(x) }$의 지식을 필요로 한다. 자주 쓰이는 접근 방법 중 하나는 매개 변수화된 신경망(parameterized neural network) $s_ \theta(x, t)$를 이용해 $\nabla_ x \log {p_ t(x)}$를 추정하는 것이다.
     - 확산 모델은 여러 시간 단계에 걸쳐 잡음 제거 스코어 매칭(denoising score matching)의 가중 조합으로 훈련된다.
-    - $\min _{\theta} {\int^ {1}_ {0} E_ {p(x)p_ {0t}(\tilde x \vert x)}[\lambda(t) \vert\vert \nabla_ {\tilde x}\log{p_ {0t}(\tilde x \vert x)} - s_ {\theta} (\tilde x, t) \vert \vert^ {2}_ {2}}]dt$
+    - $\min _{\theta} {\int^ {1} _ {0} E_ {p(x)p_ {0t}(\tilde x \vert x)}[\lambda(t) \vert\vert \nabla_ {\tilde x}\log{p_ {0t}(\tilde x \vert x)} - s_ {\theta} (\tilde x, t) \vert \vert^ {2}_ {2}}]dt$
         - $\lambda(t)$ : 가중치 계수(weighting coefficient)
         - $x(0) := x$에서부터 $x(t) := \tilde x$까지 전이 확률(transition probability) : $p_ {0t}(\tilde x \vert x)$
             - 식 (1)의 순방향 SDE를 통해 닫힌 식을 갖는다.
