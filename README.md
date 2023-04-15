@@ -64,9 +64,9 @@ Diffusion Models for Adversarial Purification
 - 순방향 확산 과정(Forward diffusion process) $\{ x(t) \}_ {t \in [0, 1]}$는 SDE에 의해 다음과 같이 정의한다.
 $dx = f(x, t)dt + g(t)dw\quad (1)$
     - 초깃값(initial value) : $x(0) := x \sim p(x)$
-    - 드리프트 계수(drift coefficient) : $f : \R^ d \times \R \rightarrow \R^ d$
-    - 확산 계수(diffusion coefficient) : $g : \R \rightarrow \R$
-    - 표준 위너 확률 과정(standard Wiener process) : $w(t) \in \R^d$
+    - 드리프트 계수(drift coefficient) : $f : R^ d \times R \rightarrow R^ d$
+    - 확산 계수(diffusion coefficient) : $g : R \rightarrow R$
+    - 표준 위너 확률 과정(standard Wiener process) : $w(t) \in R^d$
     - $p_t(x)$ : $x(t)$의 주변 분포(marginal distribution)
         - $p_ 0(x) := p(x)$
     - $**f(x,t)$와 $g(t)$는 순방향 확산 과정의 끝, 즉 $x(1)$이 표준 정규 분포(standard Gaussian distribution)를 따르도록 설계**한다. 다시 말해서, $p_ 1(x) \approx N(0, I_ d)$
