@@ -76,7 +76,7 @@ $dx = f(x, t)dt + g(t)dw\quad (1)$
             - $\beta(t)$ : 시간 의존적인 잡음 스케일(time-dependent noise scale)
             - 기본적으로 선형 잡음 스케줄(linear noise schedule)을 사용한다. 즉, $\beta(t) := \beta_ {\min} + (\beta_ {\max} - \beta_ {\min})t$
 - 표본 생성은 역-시간 SDE(reverse-time SDE)를 통해서 가능하다.
-    - $ ddd $
+    - _$ ddd $
     - $dt$ : 미소한 음의 시간 단계(An infinitesimal negative time step)
     - $\bar w (t)$  : 표준 역-시간 위너 확률 과정(standard reverse-time Wiener process)
     - $\hat x(1) \sim N(0, I_ d)$를 초깃값으로 설정한 채 위의 역-시간 SDE를 $t=1$에서 $t=0$까지 해결하는 것은 **데이터 분포에서 표본을 추출할 때까지(다시 말해서 $\hat x(0) \sim p_ {0}(x)$ ) 잡음이 덜한 데이터 $\hat x(t)$를 점진적으로 생성**한다.
