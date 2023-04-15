@@ -50,7 +50,7 @@ Diffusion Models for Adversarial Purification
 - 레이블의 의미를 파괴하지 않고 적대적 교란을 제거할 수 있도록 순방향 과정에서 추가되는 잡음의 크기에 대한 이론적 분석을 제공한다.
 - 강력한 적응 공격에 대한 평가를 위한 새로운 방법, ***adjoint method***를 제시한다. 이는 역방향 과정의 그래디언트 전체를 효율적으로 계산한다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dc389974-e5e2-4b46-8c59-fa6932c394c1/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223127-036b6b7a-f9d7-4c55-ad8f-7223cef1b1e8.png)
 
 위 그림은 *DiffPure*를 설명한다. 사전 훈련된 확산 모델이 순방향 확산 과정(Forward diffusion process)을 통해 적대적 예시에 잡음을 더한다. $t=t^ *$에서 확산된 이미지를 얻을 수 있고, 이를 역방향 과정을 통해 깨끗한 이미지로 복원한다. 이 이미지를 분류에 사용한다. 
 
@@ -154,11 +154,11 @@ $\gamma(t^ *)$는 $t^ *$에 따라 단조적으로 증가하고 $\forall t^ *,\g
 
 식 (4)에 있는 SDE에 대해, 역전파의 그래디언트 $\partial L \over \partial x(t^ *)$를 계산하는 증가된 SDE는 다음과 같이 주어진다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4a4a8d41-4b1b-48d6-9c1f-f18ff7e27922/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223138-6b6bbd62-92b7-448c-b140-e439af30562a.png)
 
 $\partial L \over \partial \hat x(0)$은 식 (4)의 SDE의 결과 $\hat x(0)$에 대한 목적 함수 $L$의 그래디언트다. 그리고,
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b11791c-b63f-4ce4-a2a7-25fe87e4c6fc/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223141-a8421042-540d-46ab-99d9-489bbb475876.png)
 
 $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
@@ -215,21 +215,21 @@ $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
 ### CIFAR-10
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eb4c7a9f-0d0e-44ef-8e58-feffe5ec84bd/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223147-d70df401-11ec-4145-a725-831233757ee2.png)
 
 위 테이블은 CIFAR-10 데이터를 공격한 $l_ \infin$ 위협 모델($\epsilon = 8/255$)에 대한 DiffPure의 강건성을 나타낸 것이다. 해당 기법이 **표준 정확도와 강건한 정확도에 있어 모두 이전의 SOTA 모델보다 나은 성능**을 보였다. 
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b9a87a4-aa6f-423a-b7b4-ba83fa42bb64/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223151-66c706b8-cf1f-4dfd-b07b-9ebda2fd76e4.png)
 
 위 테이블은 CIFAR-10 데이터를 공격한 $l_ 2$ 위협 모델($\epsilon = 0.5$)에 대한 강건성을 나타낸 것이다. DiffPure가 다른 방어 기법보다 **표준 정확도와 강건한 정확도에 있어 우수한 성능**을 보였다. DiffPure와 추가 데이터로 훈련한 기법 사이의 격차는 존재한다. 하지만 아래 그림과 같이 DiffPure에서 표준 분류기를 적대적으로 훈련된 분류기로 대체하여 수준을 높일 수 있다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0324430c-5d04-4865-ab64-987c0e06d538/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223154-975157ac-0bca-4238-91d8-1d904bc53bff.png)
 
 이러한 결과는 $l_ \infin$과 $l_ 2$ 위협 모델 모두를 방어하는 데에 있어 DiffPure의 효과를 나타낸다. 평가에 사용되는 특정 $l_ p$-norm 공격에 대해 훈련된 다른 기법과 달리 **DiffPure는 위협 모델에 구애를 받지 않는다**.
 
 ### ImageNet
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e4f177ff-6e20-46da-84db-c634eca549dd/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223161-e81a06fb-8124-4075-b57a-656acf577a64.png)
 
 위 테이블은 ImageNet을 공격한 $l_ \infin$ 위협 모델($\epsilon = 4/255$)에 대한 강건성을 나타낸 것이다. DiffPure을 두 개의 CNN 구조 ResNet-50과 WideResNet-50-2, 그리고 한 개의 ViT 구조 DeiT-S로 평가하였다. DiffPure은 **SOTA보다 표준 정확도, 강건한 정확도 모두에서 더 좋은 성능**을 보인다. 이 기법의 이점은 ViT 구조에서 더욱 두드러진다. 
 
@@ -239,7 +239,7 @@ $1_d,0_d$는 각각 전부 1, 혹은 0인 d차원 벡터를 뜻한다.
 
 적대적 훈련의 약점은 보이지 않는 공격에 대해 취약하다는 점이다. 모델이 특정 위협 모델에 강건하다고 하더라도 다른 위협 모델에 취약하다. 이를 확인하기 위해 세 가지 공격, $l _ \infin, l_ 2$ 그리고 StAdv를 이용하여 평가하였다. 적대적 훈련 기법은 특정 공격만 훈련하고 다른 공격에 대해서는 훈련하지 않았다. 예를 들어 아래 테이블에서 첫 번째 기법은 $l_ \infin$ 공격에 대해서만 훈련하였고, 따라서 나머지는 보이지 않는 위협과 같다. 아래 테이블에서 보이는 위협(즉, 이미 훈련한 공격)은 회색 글자로 하였다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5a2e6ab4-8ef3-4146-a704-0c89fcdc1182/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223175-47ccbaca-7c3f-4bbd-beae-f5b0b98c897d.png)
 
 DiffPure은 **세 가지 보이지 않는 위협 모두에 있어 적대적 훈련보다 강건한 성능**을 보였다. 보이지 않는 위협에 대한 SOTA 방어 모델과 비교했을 때, DiffPure는 **표준 정확도와 강건한 정확도 모두에 있어 우수한 성능**을 보였다. 
 
@@ -251,7 +251,7 @@ DiffPure은 **세 가지 보이지 않는 위협 모두에 있어 적대적 훈�
 
 적대적 예시를 정화할 수 있는 NVAE나 Style-GAN2 같은 다른 강력한 생성 모델과 DiffPure을 비교하였다. 기본적인 아이디어는 적대적 이미지를 먼저 잠재 코드(latent code)로 변환한 뒤 디코더를 이용하여 정화된 이미지를 합성하는 것이다. 비교를 위해 CelebA-HQ를 택하였는데, 왜냐하면 앞서 말한 두 모델이 해당 데이터에 대해 잘 작동하기 때문이다. 
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b2948b3e-9090-4aba-953a-8c2ab8e26c75/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223192-1b832aea-a7ad-4798-855d-2ca1b61d3eda.png)
 
 DiffPure의 강건성을 보이기 위해 *eyeglasses* 속성을 사용하였다. **DiffPure는 베이스 라인에서 제일 우수한 성능보다 무려 15%나 향상된 강건한 정확도와 더불어 뒤떨어지지 않는 표준 정확도**를 보였다.
 
@@ -261,7 +261,7 @@ DiffPure의 강건성을 보이기 위해 *eyeglasses* 속성을 사용하였다
 
 DiffPure을 CIFAR-10 데이터를 통해 다른 적대적 정화 기법과 비교하였다. 
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/79cbd293-67d3-436b-8f08-98ed1e8192cc/Untitled.png)
+![image](https://user-images.githubusercontent.com/54873618/232223199-0510db60-ce4e-431a-bf6f-db306e95c7a8.png)
 
 DiffPure는 BPDA+EOT 공격에 대한 이전 모델의 방어 성능보다 강건한 정확도에 있어 11.31%나 향상한 우수한 성능을 보였다. 표준 정확도 역시 크게 뒤떨어지지 않는다. 
 
