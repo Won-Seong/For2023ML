@@ -1,7 +1,5 @@
 # Title
 
----
-
 Diffusion Models for Adversarial Purification
 
 # 0. Simple terminology summary
