@@ -1,9 +1,3 @@
-# For2023ML
-For2023ML
-KAIST 2023 DS503
-
----
-
 # Title
 
 Diffusion Models for Adversarial Purification
