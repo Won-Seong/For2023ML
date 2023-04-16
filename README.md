@@ -282,4 +282,4 @@ DiffPure는 BPDA+EOT 공격에 대한 이전 모델의 방어 성능보다 강�
 - Name : SeongWon Kim(김성원)
 - Master student in StatHT, Graduate School of Data Science, KAIST
 - Email : ksw888@kaist.ac.kr
-- github : https://github.com/Won-Seong/For2023ML
+- github : https://github.com/Won-Seong/
